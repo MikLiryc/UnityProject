@@ -613,6 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  margin: {x: 0, y: 0}
 --- !u!1 &1500608345
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +625,7 @@ GameObject:
   - component: {fileID: 1500608347}
   - component: {fileID: 1500608346}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
