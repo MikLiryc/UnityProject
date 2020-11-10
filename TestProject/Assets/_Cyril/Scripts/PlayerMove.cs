@@ -35,9 +35,9 @@ public class PlayerMove : MonoBehaviour
 
         //LimitByPosition();
 
-        //LimitByScreenSize();
+        LimitByScreenSize();
 
-        LimitByViewPort();
+        //LimitByViewPort();
     }
 
     private void LimitByViewPort()
