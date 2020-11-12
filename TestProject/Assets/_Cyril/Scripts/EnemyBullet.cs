@@ -23,8 +23,8 @@ public class EnemyBullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(dir * speed * Time.deltaTime, Space.World);
-        
+        transform.Translate(dir * speed * Time.deltaTime);
+
         if (transform.position.z < -1 * gameManager.cameraHeight)
         {
             Destroy(gameObject);
@@ -33,10 +33,10 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag != "Ground" && other.transform.tag != "Enemy")
+        if (other.transform.tag != "Dead Zone")
         {
             Destroy(gameObject);
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 }

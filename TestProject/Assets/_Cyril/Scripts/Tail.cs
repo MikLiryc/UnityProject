@@ -7,7 +7,7 @@ public class Tail : MonoBehaviour
     //2D 에서 지렁이 만들듯이 꼬리가 머리를 따라다니게 만들기
     //꼬리가 타겟(플레이어)의 위치를 알고 있어야함
 
-    [SerializeField] GameObject target;             //따라다닐 타겟 (플레이어)
+    public GameObject target;             //따라다닐 타겟 (플레이어)
     [SerializeField] float speed = 3.0f;            //속도
     
     // Update is called once per frame

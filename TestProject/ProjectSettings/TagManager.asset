@@ -11,6 +11,9 @@ TagManager:
   - Ground
   - Enemy Bullet
   - Enemy
+  - Boss
+  - Boss Bullet
+  - Dead Zone
   layers:
   - Default
   - TransparentFX
@@ -20,11 +23,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - PlayerBullet
+  - EnemyBullet
+  - DeadZone
   - 
   - 
   - 

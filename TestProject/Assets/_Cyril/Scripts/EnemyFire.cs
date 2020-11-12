@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyFire : MonoBehaviour
 {
-    [SerializeField] GameObject bulletSpawner;
+    public GameObject bulletSpawner;
     [SerializeField] float fireRate = 1.0f;
     
     private Transform firePoint;

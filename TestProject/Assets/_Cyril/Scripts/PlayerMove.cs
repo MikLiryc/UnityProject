@@ -26,6 +26,8 @@ public class PlayerMove : MonoBehaviour
         Vector3 colSize = GetComponent<Collider>().bounds.extents;
         playerHalfHeight = colSize.z;
         playerHalfWidth = colSize.x;
+
+        playerRigidBody = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SidePlaneFire : MonoBehaviour
 {
-    [SerializeField] GameObject bulletSpawner;
-    [SerializeField] GameObject firePoint;
+    public GameObject bulletSpawner;
+    public GameObject firePoint;
 
     [SerializeField] float fireRate;
     float lastFire;

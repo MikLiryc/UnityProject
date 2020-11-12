@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
             transform.Translate(Vector3.forward * sidePlaneBulletSpeed * Time.deltaTime);
         }
 
-        eraseBullet();
+        //eraseBullet();
     }
 
     //카메라 화면밖으로 나가서 보이지 않게 되면 호출되는 이벤트 함수
@@ -51,15 +51,15 @@ public class Bullet : MonoBehaviour
     //    //gameObject => 이 스크립트가 할당된 게임오브젝트
     //}
 
-    void eraseBullet()
-    {
-        Vector3 position = transform.position;
-        if (position.x > cameraWidth + bulletHalfWidth
-            || position.x < -cameraWidth - bulletHalfWidth
-            || position.z > cameraHeight + bulletHalfHeight
-            || position.z < -cameraHeight - bulletHalfHeight)
-        {
-            Destroy(gameObject);
-        }
-    }
+    //void eraseBullet()
+    //{
+    //    Vector3 position = transform.position;
+    //    if (position.x > cameraWidth + bulletHalfWidth
+    //        || position.x < -cameraWidth - bulletHalfWidth
+    //        || position.z > cameraHeight + bulletHalfHeight
+    //        || position.z < -cameraHeight - bulletHalfHeight)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 }
