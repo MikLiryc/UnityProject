@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class GameManager : MonoBehaviour
 
     private GameManager gameManager;
     private bool isShowBoss = false;
+    public int spawnCount = 0;
 
     public float cameraWidth { get; set; }
     public float cameraHeight { get; set; }
     
+
     private void Start()
     {
         cameraHeight = Camera.main.orthographicSize;
@@ -24,23 +27,32 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //if (lastSpawnTime + enemySpawnRate < Time.time)
-        //{
-        //    GameObject enemy = Instantiate(enemySpawner);
-        //    Vector3 pos = enemy.transform.position;
-        //    pos.x = Random.Range(-cameraWidth, cameraWidth);
-        //    pos.z = cameraHeight + 1.0f;
-        //    enemy.transform.position = pos;
-        //
-        //    lastSpawnTime = Time.time;
-        //}
-        
-        if (!boss.activeSelf && !isShowBoss)
+        if (GameObject.Find("Player") != null)
         {
-            if (Time.time > 5.0f)
+            if (lastSpawnTime + enemySpawnRate < Time.time)
+            {
+                GameObject enemy = Instantiate(enemySpawner);
+                Vector3 pos = enemy.transform.position;
+                pos.x = Random.Range(-cameraWidth, cameraWidth);
+                pos.z = cameraHeight + 1.0f;
+                enemy.transform.position = pos;
+                enemy.transform.Rotate(new Vector3(0f, 180f, 0f));
+
+                lastSpawnTime = Time.time;
+                spawnCount++;
+            }
+
+            if (!boss.activeSelf && !isShowBoss && spawnCount > 20)
             {
                 boss.SetActive(true);
                 isShowBoss = true;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("GameScene");
             }
         }
     }

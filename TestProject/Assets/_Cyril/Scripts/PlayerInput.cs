@@ -9,7 +9,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             switch (sidePlaneLeft.activeSelf && sidePlaneRight.activeSelf)
             {

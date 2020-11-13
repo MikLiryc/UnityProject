@@ -26,9 +26,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.Find("Player").activeSelf)
+        if (GameObject.Find("Player") != null)
         {
-            transform.Translate(Vector3.back * speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
             if (transform.position.z < -cameraHeight)
             {
@@ -49,7 +49,9 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag != "Ground" && other.transform.tag != "Enemy Bullet")
+        if (other.transform.tag != "Ground" 
+            && other.transform.tag != "Enemy Bullet"
+            && other.transform.tag != "Dead Zone")
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
