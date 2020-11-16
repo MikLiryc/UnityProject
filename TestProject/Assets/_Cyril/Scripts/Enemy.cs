@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     //에너미가 플레이어를 향해서 총알 발사
 
     [SerializeField] float speed = 5.0f;
+    [SerializeField] GameObject bloodFx;
 
     //충돌처리 - Rigidbody 사용
 
@@ -41,6 +43,11 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.tag != "Ground")
         {
+            GameObject fx = Instantiate(bloodFx);
+            fx.transform.position = transform.position;
+
+            ScoreManager.Instance.addScore();
+
             //자기자신도 없애고 충돌된 오브젝트도 없앰
             Destroy(gameObject);
             Destroy(collision.gameObject);
@@ -53,6 +60,11 @@ public class Enemy : MonoBehaviour
             && other.transform.tag != "Enemy Bullet"
             && other.transform.tag != "Dead Zone")
         {
+            GameObject fx = Instantiate(bloodFx);
+            fx.transform.position = transform.position;
+
+            ScoreManager.Instance.addScore();
+
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

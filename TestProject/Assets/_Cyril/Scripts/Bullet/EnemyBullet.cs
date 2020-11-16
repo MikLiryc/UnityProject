@@ -40,8 +40,8 @@ public class EnemyBullet : MonoBehaviour
     {
         if (other.transform.tag != "Dead Zone")
         {
+            Destroy(other.gameObject);
             Destroy(gameObject);
-            other.gameObject.SetActive(false);
         }
     }
 }

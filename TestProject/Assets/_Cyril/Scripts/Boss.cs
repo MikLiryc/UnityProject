@@ -59,7 +59,6 @@ public class Boss : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         HP--;
-        Debug.Log(HP);
         Destroy(other.gameObject);
     }
 }
