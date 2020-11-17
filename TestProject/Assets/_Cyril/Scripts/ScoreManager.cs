@@ -49,7 +49,5 @@ public class ScoreManager : MonoBehaviour
     {
         score++;
         scoreText.text = "Score : " + score;
-
-        textTxt.text = "TMPro Test";
     }
 }

@@ -46,6 +46,11 @@ public class Enemy : MonoBehaviour
             GameObject fx = Instantiate(bloodFx);
             fx.transform.position = transform.position;
 
+            if (collision.gameObject.name =="Player")
+            {
+                SceneMgr.Instance.LoadScene("StartScene");
+            }
+
             ScoreManager.Instance.addScore();
 
             //자기자신도 없애고 충돌된 오브젝트도 없앰

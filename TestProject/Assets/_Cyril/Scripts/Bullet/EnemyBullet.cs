@@ -42,6 +42,11 @@ public class EnemyBullet : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
+
+            if (other.gameObject.name == "Player")
+            {
+                SceneMgr.Instance.LoadScene("StartScene");
+            }
         }
     }
 }
