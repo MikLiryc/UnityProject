@@ -108,12 +108,12 @@ public class BgmMgr : MonoBehaviour
         //크로스페이드 타임세팅
         crossFadeTime = cFTime;
 
-        //메인 오디오에서 플레이 되고 있는걸 서브오디오로 연결
+        //메인 오디오에서 플레이 되고 있는걸 서브오디오와 스왑
         AudioSource temp = audioMain;
         audioMain = audioSub;
         audioSub = temp;
 
-        //볼륨 교체
+        //볼륨 스왑
         float tempVol = volumeMain;
         volumeMain = volumeSub;
         volumeSub = volumeMain;
