@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  bloodFx: {fileID: 100000, guid: 33eb48ad52e9588408b7de60b690e8a4, type: 3}
+  bloodFx: {fileID: 1134129239631916, guid: fd54a0e0ff448a7439d2291d51997a21, type: 3}
 --- !u!114 &7485822803715043950
 MonoBehaviour:
   m_ObjectHideFlags: 0

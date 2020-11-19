@@ -11,10 +11,10 @@ public class ButtonEvent : MonoBehaviour
         SceneMgr.Instance.LoadScene("GameScene");
     }
 
-    //메뉴버튼 클릭
-    public void OnMenuButtonClick()
+    //종료버튼 클릭
+    public void OnExitButtonClick()
     {
-
+        Application.Quit();
     }
 
     //옵션 버튼 클릭
