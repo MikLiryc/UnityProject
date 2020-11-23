@@ -6,7 +6,14 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     //속력
-    public float speed = 5.0f;
+    private float speed;
+
+    public float playerSpeed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+
     private Rigidbody playerRigidBody;
     private float cameraWidth;
     private float cameraHeight;
@@ -14,12 +21,11 @@ public class PlayerMove : MonoBehaviour
     private float playerHalfHeight;
     public Vector2 margin;
 
-    //조이스틱 사용하기
-    public VariableJoystick joystick;
-
     // Start is called before the first frame update
     void Start()
     {
+        speed = 6.0f;
+
         //카메라 높이의 절반
         cameraHeight = Camera.main.orthographicSize;
         //카메라 넓이의 절반
@@ -36,36 +42,39 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //normalMove();
-
-        //LimitByPosition();
-
-        //LimitByScreenSize();
-
-        //LimitByViewPort();
-
-        UseJoystick();
-    }
-
-    private void UseJoystick()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        if (h == 0 && v == 0)
+        if (gameObject.GetComponent<Player>().lifeCount > 0)
         {
-            h = joystick.Horizontal;
-            v = joystick.Vertical;
+            //normalMove();
+
+            //LimitByPosition();
+
+            LimitByScreenSize();
+
+            //LimitByViewPort();
+
+            //UseJoystick();
         }
-
-        Vector3 dir = new Vector3(h, 0f, v);
-
-        Vector3 movePosition = transform.position + dir.normalized * speed * Time.deltaTime;
-        movePosition.x = Mathf.Clamp(movePosition.x, -cameraWidth + playerHalfWidth, cameraWidth - playerHalfWidth);
-        movePosition.z = Mathf.Clamp(movePosition.z, -cameraHeight + playerHalfHeight, cameraHeight - playerHalfHeight);
-
-        transform.position = movePosition;
     }
+
+    //private void UseJoystick()
+    //{
+    //    float h = Input.GetAxis("Horizontal");
+    //    float v = Input.GetAxis("Vertical");
+    //
+    //    if (h == 0 && v == 0)
+    //    {
+    //        h = joystick.Horizontal;
+    //        v = joystick.Vertical;
+    //    }
+    //
+    //    Vector3 dir = new Vector3(h, 0f, v);
+    //
+    //    Vector3 movePosition = transform.position + dir.normalized * speed * Time.deltaTime;
+    //    movePosition.x = Mathf.Clamp(movePosition.x, -cameraWidth + playerHalfWidth, cameraWidth - playerHalfWidth);
+    //    movePosition.z = Mathf.Clamp(movePosition.z, -cameraHeight + playerHalfHeight, cameraHeight - playerHalfHeight);
+    //
+    //    transform.position = movePosition;
+    //}
 
     private void LimitByViewPort()
     {

@@ -17,13 +17,13 @@ public class BossBullet : MonoBehaviour
         {
             ReturnBullet();
         }
-        else if (other.tag == "Player" && !other.gameObject.GetComponent<Player>().isDead)
+        else if (other.tag == "Player" )
         {
             ReturnBullet();
-            other.gameObject.GetComponent<Player>().lifeCount -= 1;
-            other.gameObject.GetComponent<Player>().isDead = true;
-            other.gameObject.GetComponent<Player>().isOnPos = false;
-            other.gameObject.transform.position = GameObject.Find("Respawn Point").transform.position;
+            if (GameObject.Find("Boss").GetComponent<Boss>().HP > 0)
+            {
+                other.GetComponent<Player>().Die();
+            }
         }
     }
 

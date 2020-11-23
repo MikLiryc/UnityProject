@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] float enemySpawnRate = 1.5f;
+    [SerializeField] float enemySpawnRate = 0.5f;
     public GameObject boss;
     private float lastSpawnTime = 0.0f;
 
@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private Text gameoverText;
     [SerializeField]
     private Button restartButton;
+    [SerializeField]
+    private Text gameClearText;
 
     public GameObject enemySpawner;
     
@@ -23,6 +25,9 @@ public class GameManager : MonoBehaviour
     private GameManager gameManager;
     private bool isShowBoss = false;
     public int spawnCount = 0;
+
+    [SerializeField]
+    private int clearCount = 30;
 
     public float cameraWidth { get; set; }
     public float cameraHeight { get; set; }
@@ -49,9 +54,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameObject.Find("Player").GetComponent<Player>().lifeCount <= 0)
+        if (GameObject.Find("Player").GetComponent<Player>().lifeCount <= 0 && GameObject.Find("Player") != null)
         {
             gameoverText.gameObject.SetActive(true);
+            restartButton.gameObject.SetActive(true);
+        }
+        else if (boss.GetComponent<Boss>().HP <= 0 && boss.GetComponent<Boss>().gameObject.activeSelf)
+        {
+            gameClearText.gameObject.SetActive(true);
             restartButton.gameObject.SetActive(true);
         }
     }
@@ -70,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EnemyCoroutine()
     {
-        while (spawnCount <= 20)
+        while (spawnCount <= clearCount)
         {
             TrySpawn();
             Debug.Log("Enemy Coroutine works");

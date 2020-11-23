@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +8,9 @@ public class Boss : MonoBehaviour
     [SerializeField] float rotateFireRate = 2.0f;
 
     public int HP { get; set; }
+
+    [SerializeField]
+    private GameObject dieEffect;
 
     public Queue<GameObject> normalBulletPool;
     private int normalBulletPoolSize = 5;
@@ -22,6 +24,13 @@ public class Boss : MonoBehaviour
     public GameObject bossRotateBullet;
     private float normalLastFire = 3f;
     private float rotateLastFire = 5f;
+
+    private float appearSpeed = 2.0f;
+
+    private float bossWidth;
+    private float bossHeight;
+
+    private bool isOnDieCoroutine = false;
 
     public bool isDead { get; set; }
 
@@ -43,22 +52,47 @@ public class Boss : MonoBehaviour
             bullet.SetActive(false);
             rotateBulletPool.Enqueue(bullet);
         }
+
+        Vector3 colsize = GetComponent<Collider>().bounds.extents;
+        bossWidth = colsize.x;
+        bossHeight = colsize.z;
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        StartCoroutine(AppearCoroutine());
+    }
+
     void Update()
     {
-        if (rotateFireRate + rotateLastFire < Time.time)
+        if (HP > 0)
         {
-            rotateFire();
+            if (rotateFireRate + rotateLastFire < Time.time)
+            {
+                rotateFire();
+            }
+            if (normalFireRate + normalLastFire < Time.time)
+            {
+                normalFire();
+            }
         }
-        if (normalFireRate + normalLastFire < Time.time)
+        else 
         {
-            normalFire();
+            if (!isDead)
+            {
+                StartCoroutine(DieCoroutine());
+            }
         }
-        if (HP <= 0)
+    }
+
+    IEnumerator AppearCoroutine()
+    {
+        transform.position -= Vector3.forward * appearSpeed * Time.deltaTime;
+        yield return null;
+
+        if (transform.position.z > 6)
         {
-            StartCoroutine(DieCoroutine());
+            StartCoroutine(AppearCoroutine());
         }
     }
 
@@ -66,8 +100,12 @@ public class Boss : MonoBehaviour
     {
         isDead = true;
 
-        yield return new WaitForEndOfFrame();
-        gameObject.SetActive(false);
+        while (true)
+        {
+            GameObject fx = Instantiate(dieEffect);
+            fx.transform.position = new Vector3(Random.Range(transform.position.x - bossWidth, transform.position.x + bossWidth), 1.0f, Random.Range(transform.position.z - bossHeight, transform.position.z + bossHeight));
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     private void normalFire()

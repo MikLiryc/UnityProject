@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     public bool isDead = false;
     public bool isOnPos = true;
 
+    [SerializeField]
+    private GameObject dieEffect;
+
     private void Awake()
     {
         lifeCount = 5;
@@ -27,6 +30,23 @@ public class Player : MonoBehaviour
                     transform.position += Vector3.forward * 8.0f * Time.deltaTime;
                 }
             }
+        }
+        else
+        {
+            //transform.position = new Vector3(100f, 100f, 100f);
+        }
+    }
+
+    public void Die()
+    {
+        if (!isDead)
+        {
+            GameObject dieFX = Instantiate(dieEffect);
+            dieFX.transform.position = gameObject.transform.position;
+            lifeCount--;
+            isDead = true;
+            isOnPos = false;
+            transform.position = GameObject.Find("Respawn Point").transform.position;
         }
     }
 

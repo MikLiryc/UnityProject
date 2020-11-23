@@ -41,10 +41,7 @@ public class EnemyBullet : MonoBehaviour
             gameObject.SetActive(false);
             GameObject.Find("BulletManager").GetComponent<BulletManager>().bulletPool.Enqueue(gameObject);
 
-            other.GetComponent<Player>().lifeCount -= 1;
-            other.GetComponent<Player>().isDead = true;
-            other.GetComponent<Player>().isOnPos = false;
-            other.gameObject.transform.position = GameObject.Find("Respawn Point").transform.position;
+            other.GetComponent<Player>().Die();
             //other.gameObject.GetComponent<Player>().lifeCount -= 1;
             //
             //SceneMgr.Instance.LoadScene("EndScene");

@@ -53,12 +53,23 @@ public class PlayerFire : MonoBehaviour
 
     void Update()
     {
-        Fire();
+        if (gameObject.GetComponent<Player>().lifeCount > 0)
+        {
+            TryFire();
+        }
+    }
+
+    public void OnLaserFireButtonClick()
+    {
+        if (GameObject.Find("Player").gameObject.GetComponent<Player>().lifeCount > 0)
+        {
+            StartCoroutine(FireLaserCoroutine());
+        }
     }
 
     public void OnFireButtonClick()
     {
-        StartCoroutine(FireLaserCoroutine());
+        Fire();
     }
 
     IEnumerator FireLaserCoroutine()
@@ -75,14 +86,21 @@ public class PlayerFire : MonoBehaviour
         
         if (Physics.Raycast(ray, out hitInfo))
         {
-            if (hitInfo.collider.gameObject.tag != "Enemy Bullet")
+            if (hitInfo.collider.gameObject.tag != "Enemy Bullet" && hitInfo.collider.gameObject.tag != "Respawn Limit")
             {
                 //레이저의 끝점 지점
                 lR.SetPosition(1, hitInfo.point);
                 //충돌된 오브젝트 모두 지우기
                 if (hitInfo.collider.tag != "Dead Zone")
                 {
-                    hitInfo.collider.gameObject.SetActive(false);
+                    if (hitInfo.collider.tag == "Enemy")
+                    {
+                        hitInfo.collider.GetComponent<Enemy>().Die();
+                    }
+                }
+                else if (hitInfo.collider.gameObject.tag != "Boss")
+                {
+                    hitInfo.collider.gameObject.GetComponent<Boss>().HP -= 1;
                 }
             }
         }
@@ -122,10 +140,18 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
-    private void Fire()
+    private void TryFire()
     {
         //마우스 왼버튼 or 왼쪽 컨트롤 키
-        if (Input.GetKey(KeyCode.Space) && lastFire + 0.2f < Time.time)
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Fire();
+        }
+    }
+
+    private void Fire()
+    {
+        if (lastFire + 0.2f < Time.time)
         {
             //발사하자마자 사운드 재생
             audioSource.PlayOneShot(audioClips[Random.Range(0, 2)]);
@@ -167,7 +193,7 @@ public class PlayerFire : MonoBehaviour
                 CreateBullet();
                 FireBullet();
             }
-            
+
             fireIndex++;
             if (fireIndex >= poolSize) { fireIndex = 0; }
 

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   sidePlaneBulletSpeed: 7
+  hitEffect: {fileID: 100014, guid: 78cf954498da3fd488ecad559e590750, type: 3}
 --- !u!54 &8305238566451329903
 Rigidbody:
   m_ObjectHideFlags: 0
