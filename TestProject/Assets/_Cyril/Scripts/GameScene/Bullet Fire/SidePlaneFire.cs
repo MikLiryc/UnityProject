@@ -12,6 +12,8 @@ public class SidePlaneFire : MonoBehaviour
 
     private int poolSize = 30;
 
+    private bool isCoroutinePlaying = false;
+
     [SerializeField] float fireRate;
 
     private void Awake()
@@ -27,17 +29,27 @@ public class SidePlaneFire : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(FireCoroutine());
+        //StartCoroutine(FireCoroutine());
+    }
+
+    private void Update()
+    {
+        if (gameObject.GetComponentInParent<Player>().lifeCount > 0)
+        {
+            if (!isCoroutinePlaying)
+            {
+                StartCoroutine(FireCoroutine());
+            }
+        }
     }
 
     IEnumerator FireCoroutine()
     {
-        while (true)
-        {
-            TryFire();
+        isCoroutinePlaying = true;
+        TryFire();
 
-            yield return new WaitForSeconds(fireRate);
-        }
+        yield return new WaitForSeconds(fireRate);
+        isCoroutinePlaying = false;
     }
 
     void TryFire()

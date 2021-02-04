@@ -17,6 +17,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] float bulletSpeed = 5.0f;
     [SerializeField] float sidePlaneBulletSpeed = 8.0f;
 
+    [SerializeField]
+    GameObject hitEffect;
+
     private void Start()
     {
         //카메라 높이의 절반
@@ -50,10 +53,11 @@ public class Bullet : MonoBehaviour
         {
             if (other.gameObject.tag == "Boss")
             {
+                GameObject fx = Instantiate(hitEffect);
+                fx.transform.position = transform.position;
+
                 gameObject.SetActive(false);
                 GameObject.Find("Player").GetComponent<PlayerFire>().bulletPool.Enqueue(gameObject);
-
-                Debug.Log("PlayerBullet Pool 사이즈 : " + GameObject.Find("Player").GetComponent<PlayerFire>().bulletPool.Count);
 
                 other.GetComponent<Boss>().HP -= 1;
             }
@@ -67,11 +71,12 @@ public class Bullet : MonoBehaviour
         {
             if (other.gameObject.name == "Boss")
             {
+                GameObject fx = Instantiate(hitEffect);
+                fx.transform.position = transform.position;
+
                 gameObject.SetActive(false);
                 other.GetComponent<Boss>().HP -= 1;
                 GameObject.Find("Player").transform.GetChild(1).GetComponent<SidePlaneFire>().bulletPool.Enqueue(gameObject);
-
-                Debug.Log("사이드 총알 사이즈 : " + GameObject.Find("Player").transform.GetChild(1).GetComponent<SidePlaneFire>().bulletPool.Count);
             }
             else if (other.gameObject.name.Contains("Dead Zone"))
             {
@@ -79,7 +84,6 @@ public class Bullet : MonoBehaviour
                 GameObject.Find("Player").transform.GetChild(1).GetComponent<SidePlaneFire>().bulletPool.Enqueue(gameObject);
             }
         }
-       
     }
 
     //카메라 화면밖으로 나가서 보이지 않게 되면 호출되는 이벤트 함수

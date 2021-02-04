@@ -35,21 +35,10 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            GameObject fx = Instantiate(bloodFx);
-            fx.transform.position = transform.position;
+            Die();
 
-            ScoreManager.Instance.addScore();
-
-            //자기자신도 없애고 충돌된 오브젝트도 없앰
-            gameObject.SetActive(false);
-            GameObject.Find("GameManager").GetComponent<GameManager>().enemyPool.Enqueue(gameObject);
-
-            collision.gameObject.GetComponent<Player>().lifeCount -= 1;
-            collision.gameObject.GetComponent<Player>().isDead = true;
-            collision.gameObject.GetComponent<Player>().isOnPos = false;
-            collision.gameObject.transform.position = GameObject.Find("Respawn Point").transform.position;
+            collision.gameObject.GetComponent<Player>().Die();
             //collision.gameObject.SetActive(false);
-            SceneMgr.Instance.LoadScene("EndScene");
         }
     }
 
@@ -62,12 +51,17 @@ public class Enemy : MonoBehaviour
         }
         else if (other.tag == "Bullet")
         {
-            GameObject fx = Instantiate(bloodFx);
-            fx.transform.position = transform.position;
-            ScoreManager.Instance.addScore();
-
-            gameObject.SetActive(false);
-            GameObject.Find("GameManager").GetComponent<GameManager>().enemyPool.Enqueue(gameObject);
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        GameObject fx = Instantiate(bloodFx);
+        fx.transform.position = transform.position;
+        ScoreManager.Instance.addScore();
+
+        gameObject.SetActive(false);
+        GameObject.Find("GameManager").GetComponent<GameManager>().enemyPool.Enqueue(gameObject);
     }
 }
